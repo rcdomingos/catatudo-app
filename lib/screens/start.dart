@@ -1,5 +1,5 @@
-import 'package:catatudo_app/screens/SingIn.dart';
-import 'package:catatudo_app/screens/SingUp.dart';
+import 'package:catatudo_app/screens/sing_in.dart';
+import 'package:catatudo_app/screens/sing_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +12,7 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -56,13 +57,13 @@ class _StartPageState extends State<StartPage> {
               height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Theme.of(context).accentColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(90),
                 ),
               ),
               child: new RaisedButton(
-                color: Colors.green,
+                color: Theme.of(context).buttonColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(90),
@@ -86,9 +87,9 @@ class _StartPageState extends State<StartPage> {
             Container(
               height: 100,
               width: double.infinity,
-              color: Colors.green,
+              color: Theme.of(context).buttonColor,
               child: new RaisedButton(
-                color: Colors.green[900],
+                color: Theme.of(context).accentColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(90),
