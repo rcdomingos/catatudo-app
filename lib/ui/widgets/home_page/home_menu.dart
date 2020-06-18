@@ -1,5 +1,4 @@
-import 'package:catatudo_app/screens/agendar_coleta.dart';
-import 'package:catatudo_app/screens/coletas_agendadas.dart';
+import 'package:catatudo_app/core/constants/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,12 +26,8 @@ class MenuHomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AgendarColeta(),
-                  ),
-                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoute.ADD_COLLECT_PAGE),
                 child: Container(
                   height: 150,
                   width: MediaQuery.of(context).size.width * 0.41,
@@ -85,12 +80,8 @@ class MenuHomeScreen extends StatelessWidget {
               ),
               SizedBox(width: 20),
               GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ColetasAgendasScreen(),
-                  ),
-                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoute.COLLECTIONS_PAGE),
                 child: Container(
                   height: 150,
                   width: MediaQuery.of(context).size.width * 0.41,

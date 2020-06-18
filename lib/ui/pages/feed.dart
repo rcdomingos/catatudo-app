@@ -1,4 +1,4 @@
-import 'package:catatudo_app/models/feed.dart';
+import 'package:catatudo_app/core/models/feed.dart';
 import 'package:flutter/material.dart';
 
 class FeedScreen extends StatefulWidget {

@@ -1,5 +1,4 @@
-import 'package:catatudo_app/screens/sing_in.dart';
-import 'package:catatudo_app/screens/sing_up.dart';
+import 'package:catatudo_app/core/constants/app_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,8 +69,7 @@ class _StartPageState extends State<StartPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) => SingUpScrenn()));
+                  Navigator.pushNamed(context, AppRoute.REGISTER_PAGE);
                 },
                 child: Text(
                   "CADASTRE-SE",
@@ -96,8 +94,7 @@ class _StartPageState extends State<StartPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SingInScrenn()));
+                  Navigator.pushNamed(context, AppRoute.LOGIN_PAGE);
                 },
                 child: Text(
                   "ENTRAR",
