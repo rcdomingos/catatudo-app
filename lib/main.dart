@@ -13,9 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_route.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(MyApp());
+  initializeDateFormatting('pt_BR').then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +37,6 @@ class MyApp extends StatelessWidget {
           fontFamily: "Roboto",
           textTheme: TextTheme(
             bodyText1: TextStyle(fontFamily: "Roboto", fontSize: 16),
-
           ).apply(
             bodyColor: Colors.black,
             displayColor: Colors.blue,
