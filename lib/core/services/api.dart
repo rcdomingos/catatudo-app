@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:catatudo_app/core/models/address.dart';
+import 'package:catatudo_app/core/models/collect.dart';
 import 'package:catatudo_app/core/models/feed.dart';
 import 'package:catatudo_app/core/models/user.dart';
 import 'package:flutter/animation.dart';
@@ -135,6 +136,16 @@ class Api {
     try {
       var statusCode = 202;
       return statusCode;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<bool> createCollect(Collect collect) async {
+    try {
+      await _fakeApiTest(2);
+      print('Api ' + collect.collectType);
+      return true;
     } catch (e) {
       print(e.toString());
     }

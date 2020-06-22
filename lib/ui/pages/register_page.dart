@@ -1,6 +1,7 @@
 import 'package:catatudo_app/core/constants/app_route.dart';
 import 'package:catatudo_app/core/viewModel/register_model.dart';
 import 'package:catatudo_app/ui/widgets/register_page/register_form.dart';
+import 'package:catatudo_app/ui/widgets/shared/default_app_bar.dart';
 import 'package:catatudo_app/ui/widgets/shared/default_button.dart';
 import 'package:catatudo_app/ui/widgets/shared/widget_loading.dart';
 
@@ -35,18 +36,16 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         builder: (context, model, child) => Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: false,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Text('Cadastro'),
-          ),
           body: Container(
             height: MediaQuery.of(context).size.height,
             child: Visibility(
               visible: !model.busy,
               child: Column(
                 children: <Widget>[
+                  DefaultAppBar(
+                    title: 'Cadastro',
+                    subTitle: 'Digite seus dados para se cadastrar',
+                  ),
                   child,
                   DefaultButton(
                     texto: 'Cadastrar',

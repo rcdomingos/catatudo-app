@@ -23,7 +23,7 @@ class CollectAddress extends StatelessWidget {
                 height: 100,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(
                       width: 1.0, color: Theme.of(context).primaryColor),
                   boxShadow: [
@@ -54,7 +54,7 @@ class CollectAddress extends StatelessWidget {
                               index, userAddress.elementAt(index));
                         },
                         child: Container(
-                          padding: EdgeInsets.only(left: 20),
+                          padding: EdgeInsets.only(left: 20.0),
                           margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
                           height: 80,
                           width: 120,
@@ -62,7 +62,7 @@ class CollectAddress extends StatelessWidget {
                             color: model.addressSelectedIndex == index
                                 ? Theme.of(context).primaryColor
                                 : Colors.white,
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(
                                 width: 1.0,
                                 color: Theme.of(context).primaryColor),

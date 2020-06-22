@@ -2,18 +2,14 @@ import 'package:catatudo_app/core/constants/app_route.dart';
 import 'package:catatudo_app/ui/widgets/shared/default_button.dart';
 import 'package:flutter/material.dart';
 
-class ReturnPage extends StatelessWidget {
-  bool _type;
-  String _message;
-  String _page;
+class ReturnCollectPage extends StatelessWidget {
+  bool type;
+  String message;
+  ReturnCollectPage({this.message, this.type});
 
   @override
   Widget build(BuildContext context) {
-    this._type = true;
-    this._message = ModalRoute.of(context).settings.arguments;
-    this._page = ModalRoute.of(context).settings.arguments;
-
-    Icon _returnIcon = (_type)
+    Icon _returnIcon = (type)
         ? Icon(Icons.check_circle, color: Colors.green, size: 50)
         : Icon(Icons.error, color: Colors.red, size: 50);
 
@@ -30,19 +26,29 @@ class ReturnPage extends StatelessWidget {
                     _returnIcon,
                     SizedBox(height: 20),
                     Text(
-                      _message,
+                      message,
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
                 ),
               ),
             ),
-            DefaultButton(
-                texto: 'Continuar',
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(AppRoute.START_PAGE);
-                })
+            (type)
+                ? DefaultButton(
+                    texto: 'Ok',
+                    onPressed: () {
+                      Navigator.of(context).popAndPushNamed(AppRoute.HOME_PAGE);
+                    })
+                : DefaultButton(
+                    texto: 'Voltar',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+
+            //                 Navigator.pop(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => HomePage()),
+            // );
           ],
         ),
       ),

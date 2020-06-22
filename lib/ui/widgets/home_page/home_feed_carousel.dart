@@ -82,11 +82,11 @@ class FeedCarosel extends StatelessWidget {
                                   tag: model.feeds[index].image,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    child: Image(
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder: 'assets/images/load.gif',
                                       height: 180,
                                       width: double.infinity,
-                                      image: NetworkImage(
-                                          model.feeds[index].image),
+                                      image: model.feeds[index].image,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

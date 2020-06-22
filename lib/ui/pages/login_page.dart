@@ -2,6 +2,7 @@ import 'package:catatudo_app/core/constants/app_route.dart';
 import 'package:catatudo_app/core/viewModel/login_model.dart';
 import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
 import 'package:catatudo_app/ui/widgets/login_page/login_form.dart';
+import 'package:catatudo_app/ui/widgets/shared/default_app_bar.dart';
 import 'package:catatudo_app/ui/widgets/shared/default_button.dart';
 import 'package:catatudo_app/ui/widgets/shared/widget_loading.dart';
 
@@ -26,15 +27,14 @@ class _LoginPageState extends State<LoginPage> {
           child: LoginForm(ctlEmail: _ctlEmail, ctlPassword: _ctlPassword),
           builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              title: Text('Entrar'),
-            ),
             body: Visibility(
               visible: !model.busy,
               child: Column(
                 children: <Widget>[
+                  DefaultAppBar(
+                    title: 'Entrar',
+                    subTitle: 'Digite aqui seus dados para entrar',
+                  ),
                   Expanded(
                     child: Container(
                       child: Column(
@@ -43,7 +43,11 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 20),
                           FlatButton(
                             onPressed: () {},
-                            child: Text('Esqueci a senha'),
+                            child: Text(
+                              'Esqueci minha senha',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(color: Colors.grey),
+                            ),
                           )
                         ],
                       ),

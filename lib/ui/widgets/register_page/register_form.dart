@@ -28,7 +28,6 @@ class RegisterForm extends StatelessWidget {
             key: formKey,
             child: Column(
               children: <Widget>[
-                Text("Digite seus dados para se cadastrar"),
                 SizedBox(height: 20),
                 TextFormField(
                   controller: ctlNome,

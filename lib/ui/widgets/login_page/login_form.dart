@@ -15,7 +15,6 @@ class LoginForm extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(
             children: <Widget>[
-              Text("Digite aqui seus dados para entrar"),
               SizedBox(height: 40),
               Form(
                 autovalidate: false,
