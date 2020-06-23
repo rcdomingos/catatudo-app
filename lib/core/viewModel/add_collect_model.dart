@@ -42,7 +42,7 @@ class AddCollectModel extends DefaultModel {
 
   ///Metodo para selecioar a data da coleta
   void setDateCollect(DateTime date) {
-    collect.collectDate = date;
+    collect.collectDate = date.toString();
     notifyListeners();
   }
 

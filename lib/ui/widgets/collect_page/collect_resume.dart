@@ -128,8 +128,9 @@ class CollectResume extends StatelessWidget {
                             : ListTile(
                                 leading: Icon(Icons.date_range),
                                 title: Text(
-                                  DateFormat('dd-MM-yyyy')
-                                      .format(model.collect.collectDate),
+                                  DateFormat('dd-MM-yyyy').format(
+                                      DateTime.parse(
+                                          model.collect.collectDate)),
                                 ),
                               ),
                         (model.collect.collectTime == null)

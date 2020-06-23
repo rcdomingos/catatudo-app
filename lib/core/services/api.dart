@@ -114,7 +114,6 @@ class Api {
     // var listFeeds = jsonDecode(fakeFeeds) as List<dynamic>;
 
     for (var feed in fakeFeeds) {
-      print(feed);
       feeds.add(Feed.fromJson(feed));
     }
 
@@ -149,6 +148,18 @@ class Api {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  ///Metodo para buscar as coletas
+  Future<List<Collect>> getCollections() async {
+    var collections = List<Collect>();
+
+    for (var collect in fakecoletas) {
+      collections.add(Collect.fromJson(collect));
+    }
+
+    print('entrou na APi' + collections.length.toString());
+    return collections;
   }
 
   ///FAKE API para testes
@@ -242,5 +253,76 @@ var fakeFeeds = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et congue elit. Vestibulum euismod aliquet tristique. Sed eu porta nulla. Cras imperdiet tristique viverra. Suspendisse gravida odio ac malesuada mattis. Nam venenatis leo consequat varius mollis. Aliquam ut ante vitae justo tincidunt fermentum vel a ipsum. Praesent porta vel metus in iaculis. Fusce dignissim convallis dui quis aliquet. Integer efficitur massa lacus, vel feugiat mauris lobortis sed. Nunc mi neque, tempor ullamcorper nunc vitae, ultrices tempor ex. Mauris venenatis orci lobortis nisl consequat ullamcorper. Nunc in mi mi. Aliquam vitae ligula vestibulum, maximus tellus eu, placerat libero.",
     "image":
         "https://blog.brkambiental.com.br/wp-content/uploads/2019/07/original-b742306ee3cd42b3c57b1a4b986bcb0c.jpg"
+  }
+];
+
+var fakecoletas = [
+  {
+    "collectType": "Reciclaveis",
+    "collectDate": "2020-06-27T20:04:18.919Z",
+    "collectTime": "Tarde",
+    "status": "Aguardando",
+    "created_date": "2020-05-27T20:04:18.919Z",
+    "addresses": {
+      "cod_address": 1,
+      "street": "Av Monteiro Lobato.",
+      "number": "302",
+      "neighborhood": "Centro",
+      "complement": "apt 7",
+      "city": "São Roque",
+      "state": "SP",
+      "zip_code": "18120-430"
+    },
+  },
+  {
+    "collectType": "Óleo",
+    "collectDate": "2021-06-27T20:04:18.919Z",
+    "collectTime": "Tarde",
+    "status": "Aguardando",
+    "created_date": "2020-05-27T20:04:18.919Z",
+    "addresses": {
+      "cod_address": 1,
+      "street": "Av Monteiro Lobato.",
+      "number": "302",
+      "neighborhood": "Centro",
+      "complement": "apt 7",
+      "city": "São Roque",
+      "state": "SP",
+      "zip_code": "18120-430"
+    },
+  },
+  {
+    "collectType": "Óleo",
+    "collectDate": "2022-06-27T20:04:18.919Z",
+    "collectTime": "Tarde",
+    "status": "Aguardando",
+    "created_date": "2020-05-27T20:04:18.919Z",
+    "addresses": {
+      "cod_address": 1,
+      "street": "Av Monteiro Lobato.",
+      "number": "302",
+      "neighborhood": "Centro",
+      "complement": "apt 7",
+      "city": "São Roque",
+      "state": "SP",
+      "zip_code": "18120-430"
+    },
+  },
+  {
+    "collectType": "Recicláveis",
+    "collectDate": "2020-06-27T20:04:18.919Z",
+    "collectTime": "Tarde",
+    "status": "Aguardando",
+    "created_date": "2020-05-27T20:04:18.919Z",
+    "addresses": {
+      "cod_address": 1,
+      "street": "Av Monteiro Lobato.",
+      "number": "302",
+      "neighborhood": "Centro",
+      "complement": "apt 7",
+      "city": "São Roque",
+      "state": "SP",
+      "zip_code": "18120-430"
+    },
   }
 ];
