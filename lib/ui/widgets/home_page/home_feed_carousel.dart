@@ -79,7 +79,7 @@ class FeedCarosel extends StatelessWidget {
                             child: Stack(
                               children: <Widget>[
                                 Hero(
-                                  tag: model.feeds[index].image,
+                                  tag: model.feeds[index].sId,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: FadeInImage.assetNetwork(

@@ -1,4 +1,6 @@
+import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddAddressForm extends StatelessWidget {
   final TextEditingController ctlStreet;
@@ -28,6 +30,7 @@ class AddAddressForm extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Form(
           key: formKey,
+          autovalidate: Provider.of<UserModel>(context).validate,
           child: Column(
             children: <Widget>[
               Text("Digite seus dados para cadastrar o endereço"),
@@ -39,7 +42,11 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Rua',
                 ),
-                validator: null,
+                validator: (value) {
+                  return value.isEmpty
+                      ? 'É necessário informar o nome da Rua'
+                      : null;
+                },
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -49,7 +56,6 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Número',
                 ),
-                validator: null,
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -59,7 +65,6 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Complemento',
                 ),
-                validator: null,
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -69,7 +74,11 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Bairro',
                 ),
-                validator: null,
+                validator: (value) {
+                  return value.isEmpty
+                      ? 'É necessário informar o nome do Bairro'
+                      : null;
+                },
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -79,6 +88,11 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Cidade',
                 ),
+                validator: (value) {
+                  return value.isEmpty
+                      ? 'É necessário informar o nome do Cidade'
+                      : null;
+                },
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -88,6 +102,11 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'UF',
                 ),
+                validator: (value) {
+                  return value.isEmpty
+                      ? 'É necessário informar o Sigla do estado (UF)'
+                      : null;
+                },
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -97,6 +116,9 @@ class AddAddressForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'CEP',
                 ),
+                validator: (value) {
+                  return value.isEmpty ? 'É necessário informar o CEP' : null;
+                },
               ),
               SizedBox(height: 200),
             ],

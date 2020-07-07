@@ -19,26 +19,26 @@ class Address {
       this.zipCode});
 
   Address.fromJson(Map<String, dynamic> json) {
-    codAddress = json['cod_address'];
+    codAddress = json['codAddress'];
     street = json['street'];
     number = json['number'];
     neighborhood = json['neighborhood'];
     complement = json['complement'];
     city = json['city'];
     state = json['state'];
-    zipCode = json['zip_code'];
+    zipCode = json['zipCode'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cod_address'] = this.codAddress;
+    data['codAddress'] = this.codAddress;
     data['street'] = this.street;
     data['number'] = this.number;
     data['neighborhood'] = this.neighborhood;
     data['complement'] = this.complement;
     data['city'] = this.city;
     data['state'] = this.state;
-    data['zip_code'] = this.zipCode;
+    data['zipCode'] = this.zipCode;
     return data;
   }
 }

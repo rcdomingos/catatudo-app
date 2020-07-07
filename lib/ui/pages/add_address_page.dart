@@ -21,11 +21,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
   var _ctlCity = new TextEditingController();
   var _ctlState = new TextEditingController();
   var _ctlZipcode = new TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
       builder: (context, model, child) => Scaffold(
+        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: false,
@@ -51,20 +53,37 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 DefaultButton(
                   texto: 'Cadastrar',
                   onPressed: () async {
-                    // if (_formKey.currentState.validate()) {
-                    Address address = new Address(
-                      street: this._ctlStreet.text,
-                      number: this._ctlNumber.text,
-                      neighborhood: this._ctlNeighborhood.text,
-                      city: this._ctlCity.text,
-                      state: this._ctlState.text,
-                    );
-                    if (true) {
-                      model.addAddress(address);
+                    if (_formKey.currentState.validate()) {
+                      Address address = new Address(
+                        street: this._ctlStreet.text,
+                        number: this._ctlNumber.text,
+                        neighborhood: this._ctlNeighborhood.text,
+                        city: this._ctlCity.text,
+                        state: this._ctlState.text,
+                        zipCode: this._ctlZipcode.text,
+                      );
 
-                      Navigator.pop(context);
+                      await model.addNewAddress(address).then((added) {
+                        if (added) {
+                          Navigator.pop(context);
+                        } else {
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: Text(model.error.description),
+                              backgroundColor: Colors.red,
+                              action: SnackBarAction(
+                                label: 'Desfazer',
+                                onPressed: () {
+                                  _scaffoldKey.currentState
+                                      .hideCurrentSnackBar();
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                      });
                     } else {
-                      // model.setValidade(true);
+                      model.setValidate(true);
                     }
                   },
                 ),

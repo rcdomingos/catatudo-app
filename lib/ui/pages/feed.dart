@@ -29,7 +29,7 @@ class _FeedScreenState extends State<FeedScreen> {
               ),
               width: MediaQuery.of(context).size.width,
               child: Hero(
-                tag: widget.feed.image,
+                tag: widget.feed.sId,
                 child: Image(
                   image: NetworkImage(widget.feed.image),
                   fit: BoxFit.cover,

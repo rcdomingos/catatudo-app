@@ -1,40 +1,77 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:catatudo_app/core/models/response_api.dart';
 import 'package:catatudo_app/core/models/user.dart';
 import 'package:catatudo_app/core/services/api.dart';
+import 'package:get_storage/get_storage.dart';
+
+final _userLocalBox = GetStorage();
 
 class AuthenticationService {
   final Api _api;
   AuthenticationService({Api api}) : _api = api;
 
-  // StreamController<User> _userController = StreamController<User>();
-
-  // Stream<User> get user => _userController.stream;
+  ResponseApi authenticationError;
 
   ///Metodo para fazer o login do usuario gerando o JWT e pegando os dados do usuario
   Future<User> login(String userEmail, String userPass) async {
-    bool hasUser = false;
+    authenticationError = null;
 
     ///pegar o jWT na API
-    var jwtUser = await _api.createJWT(userEmail, userPass);
+    var respApi = await _api.createJWT(userEmail, userPass);
 
     User fetchedUser;
 
-    ///converter o JWT e trazer o ID do usuario
-    String _userId = _getUserIdJwt(jwtUser);
+    if (respApi['code'] == 201) {
+      createLocalJwt(respApi['jwt']);
 
-    if (jwtUser != null && _userId != null) {
-      ///pegar as informações do usuario via API
-      fetchedUser = await _api.getUserProfile(_userId, jwtUser);
+      ///converter o JWT e trazer o ID do usuario
+      String _userId = _getUserIdJwt(respApi['jwt']);
 
-      hasUser = fetchedUser != null;
+      if (respApi['jwt'] != null && _userId != null) {
+        ///pegar as informações do usuario via API
+        fetchedUser = await _api.getUserProfile(_userId, respApi['jwt']);
+      }
+    } else {
+      authenticationError = new ResponseApi(
+        code: respApi['code'],
+        message: respApi['message'],
+        description: respApi['description'],
+      );
+    }
 
-      // if (hasUser) {
-      //   _userController.add(fetchedUser);
-      // }
+    // print(_userLocalBox.read('jwt'));
+
+    return fetchedUser;
+  }
+
+  ///MEtodo para fazer o login com o JWT e rotarnar o usuario
+  Future<User> loginWithJwt(String jwt) async {
+    authenticationError = null;
+
+    User fetchedUser;
+
+    String _userId = _getUserIdJwt(jwt);
+
+    fetchedUser = await _api.getUserProfile(_userId, jwt);
+
+    if (fetchedUser == null) {
+      authenticationError = _api.responseApi;
+      print(authenticationError.description);
     }
 
     return fetchedUser;
+  }
+
+  //Metodo usando o getStora para salva um dado
+  Future createLocalJwt(String jwt) async {
+    return await _userLocalBox.write('jwt', jwt);
+  }
+
+  /// Excluir o jwt local da memoria
+
+  Future<void> deleteLocalJwt() async {
+    await _userLocalBox.remove('jwt');
   }
 
   /// Pegar o ID do usuario do token JWT
@@ -46,8 +83,8 @@ class AuthenticationService {
         ),
       ),
     );
-    if (decodeJwt['user_id'] != null) {
-      return decodeJwt['user_id'];
+    if (decodeJwt['userId'] != null) {
+      return decodeJwt['userId'];
     } else {
       return null;
     }

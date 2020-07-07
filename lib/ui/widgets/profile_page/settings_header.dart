@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:catatudo_app/core/models/user.dart';
+import 'package:catatudo_app/ui/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -63,21 +64,33 @@ class UserSettingsHeader implements SliverPersistentHeaderDelegate {
                   color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
                 ),
               ),
-              Text(
-                user.name,
-                style: TextStyle(
-                  fontSize: 26.0,
-                  color: Colors.white.withOpacity(titleOpacity(shrinkOffset)),
-                ),
+              Row(
+                children: [
+                  Text(
+                    user.name,
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      color:
+                          Colors.white.withOpacity(titleOpacity(shrinkOffset)),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.mode_edit),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfilePage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        // Image(
-        //   image: NetworkImage(
-        //     user.image,
-        //   ),
-        // ),
       ],
     );
   }

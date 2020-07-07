@@ -10,12 +10,14 @@ import 'package:catatudo_app/ui/pages/return_page.dart';
 import 'package:catatudo_app/ui/pages/start_page.dart';
 import 'package:catatudo_app/ui/provider_setup.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/app_route.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   initializeDateFormatting('pt_BR').then((_) => runApp(MyApp()));
 }
 

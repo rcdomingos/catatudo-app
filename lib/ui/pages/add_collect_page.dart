@@ -1,4 +1,5 @@
 import 'package:catatudo_app/core/constants/app_route.dart';
+import 'package:catatudo_app/core/models/return_arguments.dart';
 import 'package:catatudo_app/core/services/api.dart';
 import 'package:catatudo_app/core/viewModel/add_collect_model.dart';
 import 'package:catatudo_app/ui/widgets/collect_page/collect_address.dart';
@@ -75,28 +76,15 @@ class _AddCollectPageState extends State<AddCollectPage> {
                               model.collect.address == null ||
                               model.collect.collectType == null)
                           ? null
-                          : () {
-                              model.enviarColeta().then((result) {
-                                if (result) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ReturnCollectPage(
-                                              type: true,
-                                              message: 'Coleta Agendada',
-                                            )),
+                          : () async {
+                              await model.enviarColeta().then(
+                                    (respApi) => Navigator.pushReplacementNamed(
+                                      context,
+                                      AppRoute.RETURN_PAGE,
+                                      arguments: ReturnScreenArguments(
+                                          'HOME_PAGE', respApi),
+                                    ),
                                   );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ReturnCollectPage(
-                                            type: false,
-                                            message:
-                                                'Não foi possivel realizar a coleta')),
-                                  );
-                                }
-                              });
                             })
                   : DefaultButton(
                       texto: 'Continuar',

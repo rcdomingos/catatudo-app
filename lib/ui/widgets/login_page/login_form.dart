@@ -1,10 +1,13 @@
+import 'package:catatudo_app/core/viewModel/login_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {
   final TextEditingController ctlEmail;
   final TextEditingController ctlPassword;
+  final GlobalKey<FormState> formKey;
 
-  LoginForm({@required this.ctlEmail, this.ctlPassword});
+  LoginForm({@required this.ctlEmail, this.ctlPassword, this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -16,32 +19,36 @@ class LoginForm extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(height: 40),
-              Form(
-                autovalidate: false,
-                key: null,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: ctlEmail,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: 'gerador@catatudo.com.br',
-                        border: OutlineInputBorder(),
-                        labelText: 'E-mail',
+              Consumer<LoginModel>(
+                builder: (_, model, __) => Form(
+                  autovalidate: model.validate,
+                  key: formKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        controller: ctlEmail,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          hintText: 'gerador@catatudo.com.br',
+                          border: OutlineInputBorder(),
+                          labelText: 'E-mail',
+                        ),
+                        validator: _validarEmail,
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      obscureText: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      controller: ctlPassword,
-                      decoration: const InputDecoration(
-                        hintText: 'Digite sua Senha',
-                        border: OutlineInputBorder(),
-                        labelText: 'Senha',
+                      SizedBox(height: 20),
+                      TextFormField(
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: ctlPassword,
+                        decoration: const InputDecoration(
+                          hintText: 'Digite sua Senha',
+                          border: OutlineInputBorder(),
+                          labelText: 'Senha',
+                        ),
+                        validator: _validarSenha,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -70,5 +77,6 @@ class LoginForm extends StatelessWidget {
     if (value.isEmpty) {
       return "Digite sua senha";
     }
+    return null;
   }
 }

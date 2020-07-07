@@ -16,8 +16,6 @@ class FeedModel extends DefaultModel {
 
     feeds = await _api.getNewsFeeds();
 
-    print('Api Retorno com ' + feeds.length.toString() + 'feeds');
-
     setBusy(false);
   }
 }

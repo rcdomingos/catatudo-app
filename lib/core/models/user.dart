@@ -6,8 +6,9 @@ class User {
   String email;
   bool isCollector;
   bool isAdmin;
-  String image;
   String createdDate;
+  String image;
+  String phone;
   List<Address> addresses;
 
   User(
@@ -16,18 +17,20 @@ class User {
       this.email,
       this.isCollector,
       this.isAdmin,
-      this.image,
       this.createdDate,
+      this.image,
+      this.phone,
       this.addresses});
 
   User.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     email = json['email'];
-    isCollector = json['is_collector'];
-    isAdmin = json['is_admin'];
+    isCollector = json['isCollector'];
+    isAdmin = json['isAdmin'];
+    createdDate = json['createdDate'];
     image = json['image'];
-    createdDate = json['created_date'];
+    phone = json['phone'];
     if (json['addresses'] != null) {
       addresses = new List<Address>();
       json['addresses'].forEach((v) {
@@ -41,10 +44,11 @@ class User {
     data['_id'] = this.sId;
     data['name'] = this.name;
     data['email'] = this.email;
-    data['is_collector'] = this.isCollector;
-    data['is_admin'] = this.isAdmin;
+    data['isCollector'] = this.isCollector;
+    data['isAdmin'] = this.isAdmin;
+    data['createdDate'] = this.createdDate;
     data['image'] = this.image;
-    data['created_date'] = this.createdDate;
+    data['phone'] = this.phone;
     if (this.addresses != null) {
       data['addresses'] = this.addresses.map((v) => v.toJson()).toList();
     }

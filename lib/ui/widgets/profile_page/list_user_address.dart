@@ -38,7 +38,6 @@ class ListUserAddress extends StatelessWidget {
         icon: Icon(Icons.edit),
         color: Colors.green,
         onPressed: () {
-          print(address);
           Navigator.pushNamed(context, AppRoute.EDIT_ADDRESS_PAGE,
               arguments: address);
 

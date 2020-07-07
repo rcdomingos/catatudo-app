@@ -1,5 +1,6 @@
 import 'package:catatudo_app/core/models/address.dart';
 import 'package:catatudo_app/core/models/collect.dart';
+import 'package:catatudo_app/core/models/response_api.dart';
 import 'package:catatudo_app/core/services/api.dart';
 import 'package:catatudo_app/core/viewModel/default_model.dart';
 
@@ -20,6 +21,9 @@ class AddCollectModel extends DefaultModel {
 
   int _timeRadioValue;
   int get timeRadioValue => _timeRadioValue;
+
+  ResponseApi _error;
+  ResponseApi get error => _error;
 
   bool confirmar = false;
 
@@ -59,11 +63,22 @@ class AddCollectModel extends DefaultModel {
     notifyListeners();
   }
 
-  ///Metodo para enviar o dados para API
-  Future enviarColeta() async {
+  ///Metodo para enviar o dados da coleta para API
+  Future<ResponseApi> enviarColeta() async {
     setBusy(true);
-    var resultApi = await _api.createCollect(collect);
+    ResponseApi retornoRegister = new ResponseApi();
+    bool resultApi = await _api.createCollect(collect);
+
+    if (resultApi) {
+      retornoRegister.code = 201;
+      retornoRegister.message = 'Coleta Agendada com Sucesso';
+      retornoRegister.description =
+          'Sua coleta foi agendada com sucesso, agora é só aguardar um coletor aceitar e confirmar a coleta na data e endereço informado!' +
+              '\n A equipe do CataTudo e o Planeta agradecem a sua participação';
+    } else {
+      retornoRegister = _api.responseApi;
+    }
     setBusy(false);
-    return resultApi;
+    return retornoRegister;
   }
 }

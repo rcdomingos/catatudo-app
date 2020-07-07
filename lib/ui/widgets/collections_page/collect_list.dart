@@ -1,5 +1,7 @@
+import 'package:catatudo_app/core/models/collect.dart';
 import 'package:catatudo_app/core/services/api.dart';
 import 'package:catatudo_app/core/viewModel/collections_model.dart';
+import 'package:catatudo_app/ui/widgets/shared/widget_loading.dart';
 import 'package:catatudo_app/ui/widgets/widget_base_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,13 +15,18 @@ class CollectList extends StatelessWidget {
       onModelReady: (model) => model.getCollections(),
       builder: (context, model, child) => Container(
         child: Visibility(
-          child: ListView.builder(
+          visible: model.busy,
+          child: Loading(
+            texto: 'Carregando as coletas...',
+          ),
+          replacement: ListView.builder(
               itemCount:
                   (model.collections != null) ? model.collections.length : 0,
               itemBuilder: (BuildContext context, int index) {
+                Collect collect = model.collections.elementAt(index);
                 return Container(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  height: 130,
+                  height: 150,
                   width: double.infinity,
                   child: Column(
                     children: <Widget>[
@@ -35,10 +42,8 @@ class CollectList extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            DateFormat('dd/MM/yyyy').format(DateTime.parse(model
-                                .collections
-                                .elementAt(index)
-                                .createdDate)),
+                            DateFormat('dd/MM/yyyy')
+                                .format(DateTime.parse(collect.createdDate)),
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -68,9 +73,7 @@ class CollectList extends StatelessWidget {
                                     ),
                                     Text(
                                       DateFormat('dd/MM/yyyy').format(
-                                          DateTime.parse(model.collections
-                                              .elementAt(index)
-                                              .collectDate)),
+                                          DateTime.parse(collect.collectDate)),
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     ),
@@ -89,9 +92,7 @@ class CollectList extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      model.collections
-                                          .elementAt(index)
-                                          .collectTime,
+                                      collect.collectTime,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     ),
@@ -117,9 +118,7 @@ class CollectList extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      model.collections
-                                          .elementAt(index)
-                                          .collectType,
+                                      collect.collectType,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     ),
@@ -137,7 +136,7 @@ class CollectList extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      'Aguardando',
+                                      collect.status.description,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     ),

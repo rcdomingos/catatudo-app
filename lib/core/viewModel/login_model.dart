@@ -1,8 +1,9 @@
+import 'package:catatudo_app/core/models/response_api.dart';
 import 'package:catatudo_app/core/services/authentication.dart';
+import 'package:catatudo_app/core/viewModel/default_model.dart';
 import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
-import 'package:flutter/material.dart';
 
-class LoginModel extends ChangeNotifier {
+class LoginModel extends DefaultModel {
   AuthenticationService _authenticationService;
   UserModel _userProfileModel;
 
@@ -12,29 +13,22 @@ class LoginModel extends ChangeNotifier {
   })  : _authenticationService = authenticationService,
         _userProfileModel = userProfileModel;
 
-  bool _busy = false;
-
-  bool get busy => _busy;
-
-  String _jwt;
+  ResponseApi _error;
+  ResponseApi get error => _error;
 
   Future<bool> login(String userEmail, String userPass) async {
     setBusy(true);
-
+    bool _hasUser = true;
     var user = await _authenticationService.login(userEmail, userPass);
 
-    _userProfileModel.setUser(user);
+    if (user != null) {
+      _userProfileModel.setUser(user);
+    } else {
+      _hasUser = false;
+      _error = _authenticationService.authenticationError;
+    }
 
     setBusy(false);
-    return true;
-  }
-
-  void setJWT(String value) {
-    _jwt = value;
-  }
-
-  void setBusy(bool value) {
-    _busy = value;
-    notifyListeners();
+    return _hasUser;
   }
 }

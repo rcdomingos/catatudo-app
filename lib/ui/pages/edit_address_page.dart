@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:catatudo_app/core/models/address.dart';
 import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
 import 'package:catatudo_app/ui/widgets/profile_page/edit_address_form.dart';
@@ -20,12 +22,12 @@ class _EditAddressPageState extends State<EditAddressPage> {
   var _ctlCity = new TextEditingController();
   var _ctlState = new TextEditingController();
   var _ctlZipcode = new TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Address address;
 
   @override
   Widget build(BuildContext context) {
-    print('widegte desenhado');
     UserModel userModel = Provider.of<UserModel>(context);
 
     this.address = ModalRoute.of(context).settings.arguments as Address;
@@ -40,6 +42,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
 
     // print(widget.address.toJson());
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: false,
         elevation: 0,
@@ -50,9 +53,25 @@ class _EditAddressPageState extends State<EditAddressPage> {
               icon: Icon(Icons.delete),
               color: Colors.red,
               iconSize: 30,
-              onPressed: () {
-                userModel.deleteAddress(address);
-                Navigator.pop(context);
+              onPressed: () async {
+                await userModel.deleteUserAddress(address).then((deleted) {
+                  if (deleted) {
+                    Navigator.pop(context);
+                  } else {
+                    _scaffoldKey.currentState.showSnackBar(
+                      SnackBar(
+                        content: Text(userModel.error.description),
+                        backgroundColor: Colors.red,
+                        action: SnackBarAction(
+                          label: 'Desfazer',
+                          onPressed: () {
+                            _scaffoldKey.currentState.hideCurrentSnackBar();
+                          },
+                        ),
+                      ),
+                    );
+                  }
+                });
               }),
         ],
       ),
@@ -76,24 +95,39 @@ class _EditAddressPageState extends State<EditAddressPage> {
               ),
               DefaultButton(
                   texto: 'Salvar',
-                  onPressed: () {
-                    Address editedAddress = new Address(
-                        street: this._ctlStreet.text,
-                        number: this._ctlNumber.text,
-                        neighborhood: this._ctlNeighborhood.text,
-                        complement: this._ctlComplement.text,
-                        city: this._ctlCity.text,
-                        state: this._ctlState.text,
-                        zipCode: this._ctlZipcode.text);
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      Address editedAddress = new Address(
+                          street: this._ctlStreet.text,
+                          number: this._ctlNumber.text,
+                          neighborhood: this._ctlNeighborhood.text,
+                          complement: this._ctlComplement.text,
+                          city: this._ctlCity.text,
+                          state: this._ctlState.text,
+                          zipCode: this._ctlZipcode.text);
 
-                    ///TODO:AJustar os retornos da alteração e exclusão
-                    userModel
-                        .editAddress(address, editedAddress)
-                        .then((retorno) {
-                      if (retorno) {
-                        Navigator.pop(context);
-                      }
-                    });
+                      await userModel
+                          .editAddress(address, editedAddress)
+                          .then((edited) {
+                        if (edited) {
+                          Navigator.pop(context);
+                        } else {
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: Text(userModel.error.description),
+                              backgroundColor: Colors.red,
+                              action: SnackBarAction(
+                                label: 'Desfazer',
+                                onPressed: () {
+                                  _scaffoldKey.currentState
+                                      .hideCurrentSnackBar();
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                      });
+                    }
                   }),
             ],
           ),

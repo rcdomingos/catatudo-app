@@ -1,4 +1,5 @@
 import 'package:catatudo_app/core/constants/app_route.dart';
+import 'package:catatudo_app/core/models/return_arguments.dart';
 import 'package:catatudo_app/core/viewModel/register_model.dart';
 import 'package:catatudo_app/ui/widgets/register_page/register_form.dart';
 import 'package:catatudo_app/ui/widgets/shared/default_app_bar.dart';
@@ -48,22 +49,21 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child,
                   DefaultButton(
-                    texto: 'Cadastrar',
-                    onPressed: () async {
-                      // if (_formKey.currentState.validate()) {
-                      if (true) {
-                        var returnRegister = await model.register(
-                            this._ctlNome.text,
-                            this._ctlEmail.text,
-                            this._ctlPassword.text);
+                      texto: 'Cadastrar',
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          var returnRegister = await model.register(
+                              this._ctlNome.text,
+                              this._ctlEmail.text,
+                              this._ctlPassword.text);
 
-                        Navigator.pushNamed(context, AppRoute.RETURN_PAGE,
-                            arguments: returnRegister);
-                      } else {
-                        model.setValidate(true);
-                      }
-                    },
-                  ),
+                          Navigator.pushNamed(context, AppRoute.RETURN_PAGE,
+                              arguments: ReturnScreenArguments(
+                                  'START_PAGE', returnRegister));
+                        } else {
+                          model.setValidate(true);
+                        }
+                      }),
                 ],
               ),
               replacement: Loading(

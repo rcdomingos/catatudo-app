@@ -16,8 +16,6 @@ class CollectionsModel extends DefaultModel {
 
     collections = await _api.getCollections();
 
-    print('Api Retorno com ' + collections.length.toString() + 'coletas');
-
     setBusy(false);
   }
 }
