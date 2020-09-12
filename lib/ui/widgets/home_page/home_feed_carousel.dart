@@ -1,9 +1,7 @@
 import 'package:catatudo_app/core/viewModel/feed_model.dart';
-import 'package:catatudo_app/ui/pages/feed.dart';
-
+import 'package:catatudo_app/ui/pages/feed_page.dart';
 import 'package:catatudo_app/ui/widgets/shared/widget_loading.dart';
 import 'package:catatudo_app/ui/widgets/widget_base_provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,20 +28,13 @@ class FeedCarosel extends StatelessWidget {
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.0,
-                  // shadows: <Shadow>[
-                  //   Shadow(
-                  //     offset: Offset(0.5, 0.5),
-                  //     blurRadius: 3.0,
-                  //     color: Colors.black54,
-                  //   ),
-                  // ],
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
               child: Container(
-                height: 300,
+                height: 250,
                 child: Visibility(
                   visible: !model.busy,
                   child: ListView.builder(
@@ -56,7 +47,7 @@ class FeedCarosel extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  FeedScreen(feed: model.feeds[index]),
+                                  FeedPage(feed: model.feeds[index]),
                             ),
                           );
                         },
@@ -78,44 +69,34 @@ class FeedCarosel extends StatelessWidget {
                             width: 220,
                             child: Stack(
                               children: <Widget>[
-                                Hero(
-                                  tag: model.feeds[index].sId,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: FadeInImage.assetNetwork(
-                                      placeholder: 'assets/images/load.gif',
-                                      height: 180,
-                                      width: double.infinity,
-                                      image: model.feeds[index].image,
-                                      fit: BoxFit.cover,
-                                    ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder: 'assets/images/load.gif',
+                                    height: double.infinity,
+                                    // width: double.infinity,
+                                    image: model.feeds[index].image,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
+                                tagContainer(model.feeds[index].tag == null
+                                    ? 'Novidades'
+                                    : model.feeds[index].tag),
                                 Positioned(
                                   left: 10,
                                   bottom: 10,
                                   child: Container(
                                     width: 190,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          model.feeds[index].title,
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 1.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          model.feeds[index].subtitle,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                        ),
-                                      ],
+                                    child: Text(
+                                      model.feeds[index].title,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.0,
+                                        background: Paint()
+                                          ..color = Colors.black54,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -131,6 +112,60 @@ class FeedCarosel extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  ///Tag dos feeds
+  Widget tagContainer(String tag) {
+    Color bodyColor;
+    Color textColor;
+    switch (tag.toLowerCase()) {
+      case 'novidades':
+        {
+          bodyColor = Colors.amber;
+          textColor = Colors.black;
+        }
+        break;
+
+      case 'dicas':
+        {
+          bodyColor = Colors.green;
+          textColor = Colors.white;
+        }
+        break;
+
+      case 'noticias':
+        {
+          bodyColor = Colors.red[400];
+          textColor = Colors.white;
+        }
+        break;
+
+      default:
+        {
+          bodyColor = Colors.white;
+          textColor = Colors.black;
+        }
+        break;
+    }
+
+    return Container(
+      alignment: Alignment.center,
+      width: 75,
+      height: 20,
+      decoration: BoxDecoration(
+        color: bodyColor,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0)),
+      ),
+      child: Text(
+        tag,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: textColor,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

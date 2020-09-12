@@ -33,8 +33,6 @@ class AddAddressForm extends StatelessWidget {
           autovalidate: Provider.of<UserModel>(context).validate,
           child: Column(
             children: <Widget>[
-              Text("Digite seus dados para cadastrar o endereço"),
-              SizedBox(height: 30),
               TextFormField(
                 controller: ctlStreet,
                 keyboardType: TextInputType.text,

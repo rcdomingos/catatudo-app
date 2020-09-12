@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ProfileAppBar extends StatelessWidget {
+class ShortAppBar extends StatelessWidget {
   final String title;
-  final String subTitle;
 
-  const ProfileAppBar({Key key, this.title, this.subTitle}) : super(key: key);
+  const ShortAppBar({Key key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 145,
+      height: 120,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(55)),

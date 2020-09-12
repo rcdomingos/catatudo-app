@@ -31,6 +31,9 @@ class UserModel extends DefaultModel {
     Address _newAddress = await _api.addUserAdress(user.sId, address);
 
     if (_newAddress != null) {
+      if (this._user.addresses == null) {
+        this._user.addresses = new List<Address>();
+      }
       this._user.addresses.add(_newAddress);
       notifyListeners();
     } else {

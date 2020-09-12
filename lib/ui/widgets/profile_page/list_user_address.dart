@@ -9,14 +9,13 @@ class ListUserAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
-      builder: (context, model, child) => SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            height: 80,
-            child: _itemAdress(context, model.user.addresses[index]),
-          );
-        }, childCount: model.user.addresses.length),
+      builder: (context, model, child) => ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount:
+            model.user.addresses == null ? 0 : model.user.addresses.length,
+        itemBuilder: (context, index) {
+          return _itemAdress(context, model.user.addresses[index]);
+        },
       ),
     );
   }
@@ -40,13 +39,6 @@ class ListUserAddress extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, AppRoute.EDIT_ADDRESS_PAGE,
               arguments: address);
-
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => EditAddressScreen(address: address),
-          //   ),
-          // );
         },
       ),
     );

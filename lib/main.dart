@@ -2,6 +2,7 @@ import 'package:catatudo_app/ui/pages/add_address_page.dart';
 import 'package:catatudo_app/ui/pages/add_collect_page.dart';
 import 'package:catatudo_app/ui/pages/collections_page.dart';
 import 'package:catatudo_app/ui/pages/edit_address_page.dart';
+import 'package:catatudo_app/ui/pages/edit_profile_page.dart';
 import 'package:catatudo_app/ui/pages/home_page.dart';
 import 'package:catatudo_app/ui/pages/login_page.dart';
 import 'package:catatudo_app/ui/pages/profile_page.dart';
@@ -10,6 +11,7 @@ import 'package:catatudo_app/ui/pages/return_page.dart';
 import 'package:catatudo_app/ui/pages/start_page.dart';
 import 'package:catatudo_app/ui/provider_setup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await GetStorage.init();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   initializeDateFormatting('pt_BR').then((_) => runApp(MyApp()));
 }
 
@@ -58,6 +61,7 @@ class MyApp extends StatelessWidget {
           AppRoute.EDIT_ADDRESS_PAGE: (_) => EditAddressPage(),
           AppRoute.ADD_COLLECT_PAGE: (_) => AddCollectPage(),
           AppRoute.COLLECTIONS_PAGE: (_) => CollectionsPage(),
+          AppRoute.EDIT_PROFILE_PAGE: (_) => EditProfilePage(),
         },
       ),
     );

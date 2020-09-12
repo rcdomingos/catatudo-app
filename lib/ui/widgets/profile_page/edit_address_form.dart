@@ -1,4 +1,8 @@
+import 'package:catatudo_app/core/constants/app_route.dart';
+import 'package:catatudo_app/core/models/address.dart';
+import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditAddressForm extends StatelessWidget {
   final TextEditingController ctlStreet;
@@ -10,16 +14,15 @@ class EditAddressForm extends StatelessWidget {
   final TextEditingController ctlZipcode;
   final GlobalKey<FormState> formKey;
 
-  EditAddressForm({
-    this.ctlStreet,
-    this.ctlNumber,
-    this.ctlComplement,
-    this.ctlNeighborhood,
-    this.ctlCity,
-    this.ctlState,
-    this.ctlZipcode,
-    this.formKey,
-  });
+  EditAddressForm(
+      {this.ctlStreet,
+      this.ctlNumber,
+      this.ctlComplement,
+      this.ctlNeighborhood,
+      this.ctlCity,
+      this.ctlState,
+      this.ctlZipcode,
+      this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +120,6 @@ class EditAddressForm extends StatelessWidget {
                     : null;
               },
             ),
-            SizedBox(height: 200),
           ],
         ),
       ),

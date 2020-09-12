@@ -31,12 +31,10 @@ class HomePage extends StatelessWidget {
                         Container(
                           width: 50,
                           height: 50,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: (user.image != null)
-                                ? Image(image: NetworkImage(user.image))
-                                : Icon(Icons.person,
-                                    color: Theme.of(context).primaryColor),
+                          child: CircleAvatar(
+                            backgroundImage: user.image == null
+                                ? AssetImage('assets/images/user_profile.png')
+                                : NetworkImage(user.image),
                           ),
                         ),
                         SizedBox(width: 15),
@@ -94,6 +92,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           MenuHomeScreen(),
+          SizedBox(height: 10),
           FeedCarosel(),
         ],
       ),

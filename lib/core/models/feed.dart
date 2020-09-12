@@ -8,6 +8,7 @@ class Feed {
   String image;
   String link;
   String updatedDate;
+  String tag;
 
   Feed(
       {this.sId,
@@ -18,7 +19,8 @@ class Feed {
       this.source,
       this.image,
       this.link,
-      this.updatedDate});
+      this.updatedDate,
+      this.tag});
 
   Feed.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -30,6 +32,7 @@ class Feed {
     image = json['image'];
     link = json['link'];
     updatedDate = json['updatedDate'];
+    tag = json['tag'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +46,7 @@ class Feed {
     data['image'] = this.image;
     data['link'] = this.link;
     data['updatedDate'] = this.updatedDate;
+    data['tag'] = this.tag;
     return data;
   }
 }

@@ -7,11 +7,11 @@ import 'package:catatudo_app/core/models/response_api.dart';
 import 'package:catatudo_app/core/models/user.dart';
 import 'package:dio/dio.dart';
 
-// const String SERVER_URL = 'http://192.168.1.16:3001/api/v1';
-const String SERVER_URL = 'http://192.168.1.15:3001/api/v1';
+// const String SERVER_URL = 'http://192.168.1.11:3001/api/v1';
+const String SERVER_URL = 'https://catatudo-api.herokuapp.com/api/v1';
 
 class Api {
-  Dio dio = Dio();
+  Dio dio = new Dio();
   String _userJwt;
   String get userjwt => _userJwt;
 
@@ -144,17 +144,20 @@ class Api {
   }
 
   /// Metodo para alterar as informações do usuario
-  Future<User> editUserProfile(
-      {String id, String name, String email, String phone, File file}) async {
+  Future<User> editUserProfile({
+    String id,
+    String name,
+    String email,
+    String phone,
+    File file,
+  }) async {
     try {
       var url = '$SERVER_URL/users/$id';
 
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer $userjwt',
-      };
+      Dio dio = new Dio();
 
-      FormData formData;
+      FormData formData = new FormData();
+
       if (file != null) {
         String fileName = file.path.split('/').last;
         final image =
@@ -169,13 +172,10 @@ class Api {
       Response response = await dio.put(
         url,
         data: formData,
-        options: Options(
-          followRedirects: false,
-          validateStatus: (status) {
-            return status < 500;
-          },
-          headers: headers,
-        ),
+        options:
+            Options(contentType: Headers.formUrlEncodedContentType, headers: {
+          'Authorization': 'Bearer $userjwt',
+        }),
       );
       print(response.statusCode);
 
