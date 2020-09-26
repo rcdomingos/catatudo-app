@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CollectAppBar extends StatelessWidget {
+  final Function onPressed;
+
+  const CollectAppBar({Key key, this.onPressed}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +25,7 @@ class CollectAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).padding.top),
-          IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+          IconButton(icon: Icon(Icons.arrow_back), onPressed: onPressed),
           Padding(
             padding: EdgeInsets.only(left: 35, right: 20),
             child: Text(

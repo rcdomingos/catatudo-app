@@ -7,7 +7,7 @@ import 'package:catatudo_app/core/models/response_api.dart';
 import 'package:catatudo_app/core/models/user.dart';
 import 'package:dio/dio.dart';
 
-// const String SERVER_URL = 'http://192.168.1.11:3001/api/v1';
+// const String SERVER_URL = 'http://192.168.1.13:3001/api/v1';
 const String SERVER_URL = 'https://catatudo-api.herokuapp.com/api/v1';
 
 class Api {
@@ -374,9 +374,26 @@ class Api {
   }
 
   ///Metodo para buscar as coletas
-  Future<List<Collect>> getCollections() async {
+  Future<List<Collect>> getCollections({
+    String generatorId,
+    String collectorId,
+    String status,
+  }) async {
     try {
-      var url = '$SERVER_URL/collections/';
+      var url = '$SERVER_URL/collections/?';
+
+      ///Montar a url com os queryparams
+      if (generatorId != null) {
+        url += '&generator=$generatorId';
+      }
+
+      if (collectorId != null) {
+        url += '&collector=$collectorId';
+      }
+
+      if (status != null) {
+        url += '&status=$status';
+      }
 
       var headers = {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -434,6 +451,7 @@ class Api {
             'street': collect.address.street,
             'number': collect.address.number,
             'complement': collect.address.complement,
+            'neighborhood': collect.address.neighborhood,
             'city': collect.address.city,
             'state': collect.address.state,
             'zipCode': collect.address.zipCode,
@@ -458,6 +476,53 @@ class Api {
         return true;
       } else {
         _responseApi = new ResponseApi.fromJson(response.data);
+        return false;
+      }
+    } catch (err, stacktrace) {
+      print("Exception occured: $err stackTrace: $stacktrace");
+      _responseApi = new ResponseApi(
+        code: 500,
+        message: 'Erro para gerar a Coleta',
+        description: err.toString(),
+      );
+      return false;
+    }
+  }
+
+  Future<bool> alterStatusCollect(String collectId, String codeStatus) async {
+    try {
+      var url = '$SERVER_URL/collections/$collectId/status';
+
+      var headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $userjwt',
+      };
+
+      var formData = jsonEncode(
+        <String, dynamic>{
+          'statusTo': codeStatus,
+        },
+      );
+
+      final Response response = await dio.put(
+        url,
+        data: formData,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          },
+          headers: headers,
+        ),
+      );
+
+      print(response.statusCode);
+
+      _responseApi = new ResponseApi.fromJson(response.data);
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
         return false;
       }
     } catch (err, stacktrace) {

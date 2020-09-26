@@ -49,7 +49,14 @@ class _AddCollectPageState extends State<AddCollectPage> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: <Widget>[
-              CollectAppBar(),
+              model.goHome
+                  ? CollectAppBar(onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+                  : CollectAppBar(onPressed: () {
+                      _pageController.previousPage(
+                          duration: _duration, curve: _curve);
+                    }),
               Visibility(
                 visible: !model.busy,
                 child: Expanded(

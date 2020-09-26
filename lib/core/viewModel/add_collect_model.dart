@@ -26,6 +26,7 @@ class AddCollectModel extends DefaultModel {
   ResponseApi get error => _error;
 
   bool confirmar = false;
+  bool goHome = true;
 
   ///Variaveis para envio da API
   Collect collect = new Collect();
@@ -59,7 +60,9 @@ class AddCollectModel extends DefaultModel {
 
   ///Metodo para ativar o botão de enviar coleta
   void setButtonConfirmar(int page) {
+    print(page);
     confirmar = page == 4 ? true : false;
+    goHome = page == 0 ? true : false;
     notifyListeners();
   }
 

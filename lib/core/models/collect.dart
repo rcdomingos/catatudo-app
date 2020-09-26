@@ -8,8 +8,11 @@ class Collect {
   String createdDate;
   Address address;
   String collectType;
-  double collectWeight;
+  int collectWeight;
   Status status;
+  String aceptedDate;
+  String collectorId;
+  String collectedDate;
 
   Collect(
       {this.sId,
@@ -20,7 +23,10 @@ class Collect {
       this.address,
       this.collectType,
       this.collectWeight,
-      this.status});
+      this.status,
+      this.aceptedDate,
+      this.collectorId,
+      this.collectedDate});
 
   Collect.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -34,6 +40,9 @@ class Collect {
     collectWeight = json['collectWeight'];
     status =
         json['status'] != null ? new Status.fromJson(json['status']) : null;
+    aceptedDate = json['aceptedDate'];
+    collectorId = json['collectorId'];
+    collectedDate = json['collectedDate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +60,9 @@ class Collect {
     if (this.status != null) {
       data['status'] = this.status.toJson();
     }
+    data['aceptedDate'] = this.aceptedDate;
+    data['collectorId'] = this.collectorId;
+    data['collectedDate'] = this.collectedDate;
     return data;
   }
 }

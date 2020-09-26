@@ -1,8 +1,12 @@
+import 'package:catatudo_app/ui/pages/accepted_collections_page.dart';
 import 'package:catatudo_app/ui/pages/add_address_page.dart';
 import 'package:catatudo_app/ui/pages/add_collect_page.dart';
+import 'package:catatudo_app/ui/pages/accept_collections_page.dart';
 import 'package:catatudo_app/ui/pages/collections_page.dart';
+import 'package:catatudo_app/ui/pages/details_colect_page.dart';
 import 'package:catatudo_app/ui/pages/edit_address_page.dart';
 import 'package:catatudo_app/ui/pages/edit_profile_page.dart';
+import 'package:catatudo_app/ui/pages/finish_colect_page.dart';
 import 'package:catatudo_app/ui/pages/home_page.dart';
 import 'package:catatudo_app/ui/pages/login_page.dart';
 import 'package:catatudo_app/ui/pages/profile_page.dart';
@@ -62,6 +66,10 @@ class MyApp extends StatelessWidget {
           AppRoute.ADD_COLLECT_PAGE: (_) => AddCollectPage(),
           AppRoute.COLLECTIONS_PAGE: (_) => CollectionsPage(),
           AppRoute.EDIT_PROFILE_PAGE: (_) => EditProfilePage(),
+          AppRoute.COLECTOR_COLLECTIONS_PAGE: (_) => ColectorCollectionsPage(),
+          AppRoute.DETAILS_COLLECT_PAGE: (_) => DetailsColectPage(),
+          AppRoute.ACCEPTED_COLLECT_PAGE: (_) => AcceptedCollectionsPage(),
+          AppRoute.FINISH_COLLECT_PAGE: (_) => FinishColectPage(),
         },
       ),
     );

@@ -4,6 +4,7 @@ import 'package:catatudo_app/core/services/authentication.dart';
 import 'package:catatudo_app/core/viewModel/user_profile_model.dart';
 import 'package:catatudo_app/ui/widgets/home_page/home_feed_carousel.dart';
 import 'package:catatudo_app/ui/widgets/home_page/home_menu.dart';
+import 'package:catatudo_app/ui/widgets/home_page/home_menu_coletor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -91,7 +92,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          MenuHomeScreen(),
+          user.isCollector ? MenuHomeColetor() : MenuHomeScreen(),
           SizedBox(height: 10),
           FeedCarosel(),
         ],
